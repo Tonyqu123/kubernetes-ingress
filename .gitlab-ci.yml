@@ -42,5 +42,5 @@ format:
 bind:
   stage: build-in-docker
   script: 
-    - cd ../build
+    - cd build
     - docker build .
