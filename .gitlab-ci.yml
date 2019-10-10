@@ -29,15 +29,15 @@ format:
     # - go vet $(go list ./... | grep -v /vendor/)
     # - go test -race $(go list ./... | grep -v /vendor/)
 
-compile:
-  stage: build
-  script:
-    # - go build -race -ldflags "-extldflags '-static'" -o $CI_PROJECT_DIR/mybinary
-    - pwd
-    - go build -o build/_output/bin/ingress cmd/nginx-ingress/main.go
-  artifacts:
-    paths:
-      - mybinary
+# compile:
+#   stage: build
+#   script:
+#     # - go build -race -ldflags "-extldflags '-static'" -o $CI_PROJECT_DIR/mybinary
+#     - pwd
+#     - go build -o build/_output/bin/ingress cmd/nginx-ingress/main.go
+#   artifacts:
+#     paths:
+#       - mybinary
 
 bind:
   stage: build-in-docker
