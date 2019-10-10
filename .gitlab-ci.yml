@@ -49,9 +49,9 @@ format:
 
 bink:
   variables:
-    CI_REGISTRY_IMAGE: "hub.eurekacloud.io/s4/datastore-operator"
+    CI_REGISTRY_IMAGE: "hub.eurekacloud.io/s4/kube-ingress-qu"
     CI_COMMIT_TAG: "test-kaniko"
-    CI_PROJECT_DIR: build
+    # CI_PROJECT_DIR: build
   stage: kaniko-build
   image:
     name: gcr.io/kaniko-project/executor:debug
@@ -59,4 +59,4 @@ bink:
   script:
     - pwd
     - echo "using kaniko"
-    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile --destination $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG
+    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/build/Dockerfile --destination $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG
