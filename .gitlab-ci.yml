@@ -15,11 +15,13 @@ before_script:
   - mkdir -p $GOPATH/src/$(dirname $REPO_NAME)
   - ln -svf $CI_PROJECT_DIR $GOPATH/src/$REPO_NAME
   - cd $GOPATH/src/$REPO_NAME
+  - pwd
 
 stages:
   - test
   # - build
-  - build-in-docker
+  # - build-in-docker
+  - kaniko-build
   # - deploy
 
 format:
@@ -39,8 +41,21 @@ format:
 #     paths:
 #       - mybinary
 
-bind:
-  stage: build-in-docker
-  script: 
-    - cd build
-    - docker build .
+# bind:
+#   stage: build-in-docker
+#   script: 
+#     - cd build
+#     - docker build .
+
+bink:
+  variables:
+    CI_REGISTRY_IMAGE: "hub.eurekacloud.io/s4/datastore-operator"
+    CI_COMMIT_TAG: "test-kaniko"
+  stage: kaniko-build
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  script:
+    - pwd
+    - echo "using kaniko"
+    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile --destination $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG
