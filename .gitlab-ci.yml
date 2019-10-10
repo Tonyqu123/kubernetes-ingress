@@ -19,7 +19,7 @@ before_script:
 stages:
   - test
   - build
-  - deploy
+  # - deploy
 
 format:
   stage: test
@@ -31,7 +31,9 @@ format:
 compile:
   stage: build
   script:
-    - go build -race -ldflags "-extldflags '-static'" -o $CI_PROJECT_DIR/mybinary
+    # - go build -race -ldflags "-extldflags '-static'" -o $CI_PROJECT_DIR/mybinary
+    - pwd
+    - go build -o build/_output/bin/ingress cmd/nginx-ingress/main.go
   artifacts:
     paths:
       - mybinary
