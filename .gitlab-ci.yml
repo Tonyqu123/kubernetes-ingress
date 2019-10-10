@@ -18,7 +18,8 @@ before_script:
 
 stages:
   - test
-  - build
+  # - build
+  - build-in-docker
   # - deploy
 
 format:
@@ -37,3 +38,9 @@ compile:
   artifacts:
     paths:
       - mybinary
+
+bind:
+  stage: build-in-docker
+  script: 
+    - cd ../build
+    - docker build .
